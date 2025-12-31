@@ -18,20 +18,22 @@ body {
 #lock {
   position: fixed;
   inset: 0;
-  #lock {
-  background: 
+
+  background:
     linear-gradient(
       rgba(0,0,0,0.45),
       rgba(0,0,0,0.65)
     ),
     url("photo5.jpg") center / cover no-repeat;
-}
 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;      /* bottom */
+  justify-content: flex-end;  /* right */
+
+  padding: env(safe-area-inset-bottom) 20px 40px env(safe-area-inset-right);
   z-index: 20;
 }
+
 
 .lockCard {
   background: rgba(0,0,0,0.45);
