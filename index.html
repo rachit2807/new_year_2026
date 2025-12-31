@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year My Betuuu ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue";
+  background: radial-gradient(circle at top, #1b1b1b, #000);
+  color: white;
+  overflow: hidden;
+}
+
+/* LOCK SCREEN */
+#lock {
+  position: fixed;
+  inset: 0;
+  background: url('https://i.imgur.com/8Km9tLL.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.lockCard {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(25px);
+  padding: 35px;
+  border-radius: 30px;
+  text-align: center;
+  width: 85%;
+  max-width: 320px;
+}
+
+.lockCard h2 { margin-bottom: 15px; }
+
+.lockCard input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  text-align: center;
+  font-size: 16px;
+}
+
+.lockCard button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  font-weight: bold;
+}
+
+/* MAIN */
+#main {
+  display: none;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.glass {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(25px);
+  border-radius: 32px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+#name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+#countdown {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* HEARTS */
+.heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  color: pink;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* FIREWORKS */
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- LOCK -->
+<div id="lock">
+  <div class="lockCard">
+    <h2>🔒 Just For You</h2>
+    <input id="pass" type="password" placeholder="Our Special Date ❤️">
+    <button onclick="unlock()">Unlock ✨</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="glass">
+    <h1>🎆 Happy New Year 2026 🎆</h1>
+    <div id="name"></div>
+    <div id="countdown"></div>
+  </div>
+
+  <div class="glass">
+    <p>
+      As the world steps into a new year,  
+      I just want you to know one thing —  
+      <br><br>
+      **You are my favorite part of every year.** ❤️  
+      <br><br>
+      Thank you for loving me, understanding me,  
+      and choosing me, every single day.  
+      <br><br>
+      If 2026 gives me nothing else,  
+      but gives me *you*,  
+      then it’s already my best year ever ✨
+    </p>
+  </div>
+
+  <div class="glass">
+    <h3>📸 Us, Forever</h3>
+    <div class="gallery">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+      <img src="photo4.jpg">
+    </div>
+  </div>
+
+  <div class="glass">
+    With all my heart ❤️
+  </div>
+</div>
+
+<script>
+/* PASSWORD */
+const correctPassword = "0207"; // change
+function unlock(){
+  if(pass.value === correctPassword){
+    lock.style.display="none";
+    main.style.display="block";
+    document.getElementById("music").play();
+    typeName();
+    fireworks();
+    hearts();
+  } else alert("Not quite… try again ❤️");
+}
+
+/* TYPE NAME */
+const text = "Prakarti ❤️"; // change name
+let i = 0;
+function typeName(){
+  if(i < text.length){
+    name.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeName, 150);
+  }
+}
+
+/* COUNTDOWN */
+const target = new Date("Jan 1, 2026 00:00:00").getTime();
+setInterval(()=>{
+  const now = Date.now();
+  const d = target - now;
+  const days = Math.floor(d/(1000*60*60*24));
+  const h = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const m = Math.floor((d%(1000*60*60))/(1000*60));
+  const s = Math.floor((d%(1000*60))/1000);
+  countdown.innerHTML = `⏳ ${days}d ${h}h ${m}m ${s}s until our new year`;
+},1000);
+
+/* HEARTS */
+function hearts(){
+  setInterval(()=>{
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },400);
+}
+
+/* FIREWORKS */
+const c = document.getElementById("fireworks");
+const ctx = c.getContext("2d");
+c.width = innerWidth;
+c.height = innerHeight;
+
+function fireworks(){
+  setInterval(()=>{
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,c.width,c.height);
+    for(let i=0;i<25;i++){
+      ctx.beginPath();
+      ctx.arc(Math.random()*c.width,Math.random()*c.height,2,0,Math.PI*2);
+      ctx.fillStyle=`hsl(${Math.random()*360},100%,70%)`;
+      ctx.fill();
+    }
+  },80);
+}
+</script>
+
+</body>
+</html>
